@@ -1,0 +1,9 @@
+{
+    "name": "vladimir/blog",
+    "description": "Simple blog on pure PHP with Smarty and MySQL",
+    "type": "project",
+    "require": {
+        "php": ">=8.1"
+    }
+}
+
