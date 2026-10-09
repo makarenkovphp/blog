@@ -13,7 +13,7 @@
             </div>
 
             <p>
-                <a href="/category.php?id={$category.id}">
+                <a href="/category.php?id={$category.id}" class="all-articles-btn">
                     All articles
                 </a>
             </p>
