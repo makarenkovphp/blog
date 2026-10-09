@@ -35,9 +35,9 @@
 
     <hr>
 
-    <section>
-        <h2>Similar articles</h2>
-
+    <h2>Similar articles</h2>
+        
+    <section class="post-grid">
         {if $similarPosts}
             {foreach $similarPosts as $similarPost}
                 {include file="partials/post-card.tpl" post=$similarPost}

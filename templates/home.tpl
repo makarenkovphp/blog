@@ -6,7 +6,7 @@
             <h2>{$category.name|escape}</h2>
             <p>{$category.description|escape}</p>
 
-            <div>
+            <div class="post-grid">
                 {foreach $category.posts as $post}
                     {include file="partials/post-card.tpl" post=$post}
                 {/foreach}

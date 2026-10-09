@@ -13,7 +13,7 @@
         <a href="/category.php?id={$category.id}&sort=views">Views</a>
     </nav>
 
-    <section>
+    <section class="post-grid">
         {if $posts}
             {foreach $posts as $post}
                 {include file="partials/post-card.tpl" post=$post}
