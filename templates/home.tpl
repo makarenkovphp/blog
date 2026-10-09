@@ -1,38 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{$title}</title>
-</head>
-<body>
+{extends file="layouts/main.tpl"}
 
-<header>
-    <h1>{$title}</h1>
-</header>
-
-<main>
+{block name="content"}
     {foreach $categories as $category}
         <section>
-            <h2>{$category.name}</h2>
-
-            <p>{$category.description}</p>
+            <h2>{$category.name|escape}</h2>
+            <p>{$category.description|escape}</p>
 
             <div>
                 {foreach $category.posts as $post}
-                    <article>
-                        <h3>
-                            <a href="/post.php?id={$post.id}">
-                                {$post.title}
-                            </a>
-                        </h3>
-
-                        <p>{$post.description}</p>
-
-                        <small>
-                            {$post.views} views |
-                            {$post.published_at}
-                        </small>
-                    </article>
+                    {include file="partials/post-card.tpl" post=$post}
                 {/foreach}
             </div>
 
@@ -43,7 +19,5 @@
             </p>
         </section>
     {/foreach}
-</main>
+{/block}
 
-</body>
-</html>

@@ -1,69 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{$title|escape}</title>
-</head>
-<body>
+{extends file="layouts/main.tpl"}
 
-<header>
-    <h1><a href="/">My Blog</a></h1>
-</header>
-
-<main>
-    <h2>{$category.name|escape}</h2>
-
-    <p>{$category.description|escape}</p>
+{block name="content"}
+    <section>
+        <h2>{$category.name|escape}</h2>
+        <p>{$category.description|escape}</p>
+    </section>
 
     <nav>
-        Sort by:
-        <a href="?id={$category.id}&sort=date">Publication date</a>
+        <span>Sort by:</span>
+        <a href="/category.php?id={$category.id}&sort=date">Date</a>
         |
-        <a href="?id={$category.id}&sort=views">Views</a>
+        <a href="/category.php?id={$category.id}&sort=views">Views</a>
     </nav>
 
-    {if $posts}
-        {foreach $posts as $post}
-            <article>
-                <h3>
-                    <a href="/post.php?id={$post.id}">
-                        {$post.title|escape}
-                    </a>
-                </h3>
+    <section>
+        {if $posts}
+            {foreach $posts as $post}
+                {include file="partials/post-card.tpl" post=$post}
+            {/foreach}
+        {else}
+            <p>No articles found.</p>
+        {/if}
+    </section>
 
-                <p>{$post.description|escape}</p>
+    <nav>
+        {if $page > 1}
+            <a href="/category.php?id={$category.id}&sort={$sort|escape}&page={$page - 1}">
+                Previous
+            </a>
+        {/if}
 
-                <small>
-                    Views: {$post.views}
-                    |
-                    Published: {$post.published_at|escape}
-                </small>
-            </article>
-        {/foreach}
-    {else}
-        <p>No articles in this category yet.</p>
-    {/if}
+        <span>Page {$page} of {$totalPages}</span>
 
-    {if $totalPages > 1}
-        <nav aria-label="Pagination">
-            {if $page > 1}
-                <a href="?id={$category.id}&sort={$sort}&page={$page - 1}">
-                    Previous
-                </a>
-            {/if}
-
-            Page {$page} of {$totalPages}
-
-            {if $page < $totalPages}
-                <a href="?id={$category.id}&sort={$sort}&page={$page + 1}">
-                    Next
-                </a>
-            {/if}
-        </nav>
-    {/if}
+        {if $page < $totalPages}
+            <a href="/category.php?id={$category.id}&sort={$sort|escape}&page={$page + 1}">
+                Next
+            </a>
+        {/if}
+    </nav>
 
     <p><a href="/">Back to home</a></p>
-</main>
+{/block}
 
-</body>
-</html>

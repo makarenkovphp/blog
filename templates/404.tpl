@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{$title|escape}</title>
-</head>
-<body>
-    <h1>404 — Page not found</h1>
+{extends file="layouts/main.tpl"}
+
+{block name="content"}
+    <h2>404 - Page not found</h2>
     <p>The requested page does not exist.</p>
-    <a href="/">Back to home</a>
-</body>
-</html>
+    <p><a href="/">Back to home</a></p>
+{/block}
+

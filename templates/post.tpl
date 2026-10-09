@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{$title|escape}</title>
-</head>
-<body>
+{extends file="layouts/main.tpl"}
 
-<header>
-    <h1><a href="/">My Blog</a></h1>
-</header>
-
-<main>
+{block name="content"}
     <article>
         <h2>{$post.title|escape}</h2>
 
         <p>{$post.description|escape}</p>
 
         <p>
-            Published: {$post.published_at|escape}
-            |
+            Published: {$post.published_at|escape} |
             Views: {$post.views}
         </p>
 
@@ -42,9 +30,7 @@
             >
         {/if}
 
-        <div>
-            {$post.content|escape|nl2br}
-        </div>
+        <div>{$post.content|escape|nl2br}</div>
     </article>
 
     <hr>
@@ -54,21 +40,7 @@
 
         {if $similarPosts}
             {foreach $similarPosts as $similarPost}
-                <article>
-                    <h3>
-                        <a href="/post.php?id={$similarPost.id}">
-                            {$similarPost.title|escape}
-                        </a>
-                    </h3>
-
-                    <p>{$similarPost.description|escape}</p>
-
-                    <small>
-                        Views: {$similarPost.views}
-                        |
-                        Published: {$similarPost.published_at|escape}
-                    </small>
-                </article>
+                {include file="partials/post-card.tpl" post=$similarPost}
             {/foreach}
         {else}
             <p>No similar articles found.</p>
@@ -76,7 +48,5 @@
     </section>
 
     <p><a href="/">Back to home</a></p>
-</main>
+{/block}
 
-</body>
-</html>
