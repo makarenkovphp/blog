@@ -40,7 +40,16 @@ final class PostController
         $this->smarty->assign('title', $post['title']);
         $this->smarty->assign('post', $post);
         $this->smarty->assign('categories', $categories);
+        $this->smarty->assign(
+            'activeCategoryIds',
+            array_map('intval', array_column($categories, 'id'))
+        );
         $this->smarty->assign('similarPosts', $similarPosts);
+        $this->smarty->assign(
+            'navigationCategories',
+            $this->categoryRepository->findAllWithPosts()
+        );
+        $this->smarty->assign('isHomePage', false);
 
         $this->smarty->display('post.tpl');
     }

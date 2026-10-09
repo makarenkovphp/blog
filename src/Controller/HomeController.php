@@ -27,7 +27,11 @@ final class HomeController
 
         $this->smarty->assign('title', 'My Blog');
         $this->smarty->assign('categories', $categories);
+        $this->smarty->assign('navigationCategories', $categories);
+        $this->smarty->assign('activeCategoryId', null);
+        $this->smarty->assign('isHomePage', true);
 
         $this->smarty->display('home.tpl');
     }
 }
+

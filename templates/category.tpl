@@ -6,11 +6,11 @@
         <p>{$category.description|escape}</p>
     </section>
 
-    <nav>
+    <nav class="sort-nav">
         <span>Sort by:</span>
-        <a href="/category.php?id={$category.id}&sort=date">Date</a>
+        <a href="/category.php?id={$category.id}&sort=date" class="{if $sort === 'date'}active{/if}">Date</a>
         |
-        <a href="/category.php?id={$category.id}&sort=views">Views</a>
+        <a href="/category.php?id={$category.id}&sort=views" class="{if $sort === 'views'}active{/if}">Views</a>
     </nav>
 
     <section class="post-grid">

@@ -13,6 +13,23 @@
             <h1><a href="/">My Blog</a></h1>
         </header>
 
+        <nav class="site-nav">
+            <a href="/" class="{if $isHomePage|default:false}active{/if}">
+                Home
+            </a>
+
+            {foreach $navigationCategories as $navCategory}
+                <a
+                    href="/category.php?id={$navCategory.id}"
+                    class="{if ($activeCategoryId|default:null) == $navCategory.id
+                            || (isset($activeCategoryIds)
+                            && in_array($navCategory.id, $activeCategoryIds))}active{/if}"
+                >
+                    {$navCategory.name|escape}
+                </a>
+            {/foreach}
+        </nav>
+
         <main>
             {block name="content"}{/block}
         </main>

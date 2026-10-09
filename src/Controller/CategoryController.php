@@ -60,10 +60,19 @@ final class CategoryController
 
         $this->smarty->assign('title', $category['name']);
         $this->smarty->assign('category', $category);
+        $this->smarty->assign(
+            'activeCategoryIds',
+            [(int) $category['id']]
+        );
         $this->smarty->assign('posts', $posts);
         $this->smarty->assign('sort', $sort);
         $this->smarty->assign('page', $page);
         $this->smarty->assign('totalPages', $totalPages);
+        $this->smarty->assign(
+            'navigationCategories',
+            $this->categoryRepository->findAllWithPosts()
+        );
+        $this->smarty->assign('isHomePage', false);
 
         $this->smarty->display('category.tpl');
     }
@@ -76,3 +85,4 @@ final class CategoryController
         $this->smarty->display('404.tpl');
     }
 }
+
