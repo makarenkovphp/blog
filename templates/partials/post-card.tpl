@@ -1,4 +1,15 @@
 <article>
+    {if $post.image}
+        <a href="/post.php?id={$post.id}">
+            <img
+                src="{$post.image|escape}"
+                alt="{$post.title|escape}"
+                loading="lazy"
+                style="max-width: 300px; height: auto;"
+            >
+        </a>
+    {/if}
+
     <h3>
         <a href="/post.php?id={$post.id}">
             {$post.title|escape}
