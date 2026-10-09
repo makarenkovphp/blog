@@ -144,6 +144,61 @@ final class PostRepository
 
         $statement->execute();
 
+        $similar = $statement->fetchAll();
+
+        if (count($similar) >= $limit) {
+            return $similar;
+        }
+
+        $excludeIds = array_merge(
+            [$postId],
+            array_column($similar, 'id')
+        );
+
+        $fill = $this->findLatestExcluding(
+            $excludeIds,
+            $limit - count($similar)
+        );
+
+        return array_merge($similar, $fill);
+    }
+
+    /**
+     * @param list<int> $excludeIds
+     */
+    private function findLatestExcluding(array $excludeIds, int $limit): array
+    {
+        if ($limit < 1 || $excludeIds === []) {
+            return [];
+        }
+
+        $placeholders = implode(',', array_fill(0, count($excludeIds), '?'));
+
+        $statement = $this->pdo->prepare("
+            SELECT
+                p.id,
+                p.image,
+                p.title,
+                p.description,
+                p.views,
+                p.published_at
+            FROM posts p
+            WHERE p.id NOT IN ({$placeholders})
+            ORDER BY p.published_at DESC, p.id DESC
+            LIMIT ?
+        ");
+
+        $parameterIndex = 1;
+
+        foreach ($excludeIds as $excludeId) {
+            $statement->bindValue($parameterIndex, $excludeId, PDO::PARAM_INT);
+            $parameterIndex++;
+        }
+
+        $statement->bindValue($parameterIndex, $limit, PDO::PARAM_INT);
+
+        $statement->execute();
+
         return $statement->fetchAll();
     }
 
